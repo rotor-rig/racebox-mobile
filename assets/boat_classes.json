@@ -1,0 +1,37 @@
+[
+    {
+      "className": "Laser",
+      "shortName": "Laser",
+      "handicap": 1100
+    },
+    {
+      "className": "Optimist",
+      "shortName": "Opti",
+      "handicap": 1200
+    },
+    {
+      "className": "470",
+      "shortName": "470",
+      "handicap": 1050
+    },
+    {
+      "className": "49er",
+      "shortName": "49er",
+      "handicap": 950
+    },
+    {
+      "className": "Finn",
+      "shortName": "Finn",
+      "handicap": 1030
+    },
+    {
+      "className": "RS:X",
+      "shortName": "RS:X",
+      "handicap": 1010
+    },
+    {
+      "className": "Nacra 17",
+      "shortName": "Nacra",
+      "handicap": 980
+    }
+  ]
