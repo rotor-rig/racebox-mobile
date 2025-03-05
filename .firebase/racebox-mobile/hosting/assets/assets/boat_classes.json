@@ -1,0 +1,602 @@
+[
+  {
+    "className": "4000",
+    "shortName": "4000",
+    "handicap": 923,
+    "priority": false
+  },
+  {
+    "className": "420",
+    "shortName": "420",
+    "handicap": 1110,
+    "priority": false
+  },
+  {
+    "className": "505",
+    "shortName": "505",
+    "handicap": 896,
+    "priority": false
+  },
+  {
+    "className": "2000",
+    "shortName": "2000",
+    "handicap": 1121,
+    "priority": false
+  },
+  {
+    "className": "2.4mr",
+    "shortName": "2.4mr",
+    "handicap": 1244,
+    "priority": true
+  },
+  {
+    "className": "29er",
+    "shortName": "29er",
+    "handicap": 900,
+    "priority": false
+  },
+  {
+    "className": "Albacore",
+    "shortName": "Albacore",
+    "handicap": 1037,
+    "priority": false
+  },
+  {
+    "className": "Alto",
+    "shortName": "Alto",
+    "handicap": 921,
+    "priority": false
+  },
+  {
+    "className": "B14",
+    "shortName": "B14",
+    "handicap": 858,
+    "priority": false
+  },
+  {
+    "className": "Blaze",
+    "shortName": "Blaze",
+    "handicap": 1030,
+    "priority": false
+  },
+  {
+    "className": "British Moth",
+    "shortName": "British Moth",
+    "handicap": 1165,
+    "priority": false
+  },
+  {
+    "className": "Byte Cii",
+    "shortName": "Byte Cii",
+    "handicap": 1129,
+    "priority": false
+  },
+  {
+    "className": "Comet",
+    "shortName": "Comet",
+    "handicap": 1208,
+    "priority": false
+  },
+  {
+    "className": "Comet Trio Mk 1",
+    "shortName": "Comet Trio Mk 1",
+    "handicap": 1088,
+    "priority": false
+  },
+  {
+    "className": "Comet Trio Mk 2",
+    "shortName": "Comet Trio Mk 2",
+    "handicap": 1053,
+    "priority": false
+  },
+  {
+    "className": "Contender",
+    "shortName": "Contender",
+    "handicap": 969,
+    "priority": false
+  },
+  {
+    "className": "Devoti D-One",
+    "shortName": "D-One",
+    "handicap": 955,
+    "priority": false
+  },
+  {
+    "className": "Devoti D-Zero",
+    "shortName": "D-Zero",
+    "handicap": 1029,
+    "priority": false
+  },
+  {
+    "className": "Enterprise",
+    "shortName": "Enterprise",
+    "handicap": 1137,
+    "priority": true
+  },
+  {
+    "className": "Europe",
+    "shortName": "Europe",
+    "handicap": 1140,
+    "priority": true
+  },
+  {
+    "className": "Finn",
+    "shortName": "Finn",
+    "handicap": 1049,
+    "priority": true
+  },
+  {
+    "className": "Fireball",
+    "shortName": "Fireball",
+    "handicap": 959,
+    "priority": false
+  },
+  {
+    "className": "Firefly",
+    "shortName": "Firefly",
+    "handicap": 1174,
+    "priority": false
+  },
+  {
+    "className": "Flying Fifteen",
+    "shortName": "Flying Fifteen",
+    "handicap": 1028,
+    "priority": false
+  },
+  {
+    "className": "Frensi",
+    "shortName": "Frensi",
+    "handicap": 1200,
+    "priority": true
+  },
+  {
+    "className": "GP14",
+    "shortName": "GP14",
+    "handicap": 1141,
+    "priority": true
+  },
+  {
+    "className": "Graduate",
+    "shortName": "Graduate",
+    "handicap": 1100,
+    "priority": false
+  },
+  {
+    "className": "Hadron H2",
+    "shortName": "Hadron H2",
+    "handicap": 1045,
+    "priority": false
+  },
+  {
+    "className": "Hornet",
+    "shortName": "Hornet",
+    "handicap": 955,
+    "priority": false
+  },
+  {
+    "className": "Laser 4.7",
+    "shortName": "Laser 4.7",
+    "handicap": 1216,
+    "priority": true
+  },
+  {
+    "className": "ILCA 4",
+    "shortName": "ILCA 4",
+    "handicap": 1216,
+    "priority": true
+  },
+  {
+    "className": "Laser Radial",
+    "shortName": "Laser Radial",
+    "handicap": 1154,
+    "priority": true
+  },
+  {
+    "className": "ILCA 6",
+    "shortName": "ILCA 6",
+    "handicap": 1154,
+    "priority": true
+  },
+  {
+    "className": "Laser",
+    "shortName": "Laser",
+    "handicap": 1104,
+    "priority": true
+  },
+  {
+    "className": "ILCA 7",
+    "shortName": "ILCA 7",
+    "handicap": 1104,
+    "priority": true
+  },
+  {
+    "className": "K1",
+    "shortName": "K1",
+    "handicap": 1065,
+    "priority": true
+  },
+  {
+    "className": "K6",
+    "shortName": "K6",
+    "handicap": 910,
+    "priority": false
+  },
+  {
+    "className": "Kestrel",
+    "shortName": "Kestrel",
+    "handicap": 1042,
+    "priority": false
+  },
+  {
+    "className": "Lark",
+    "shortName": "Lark",
+    "handicap": 1060,
+    "priority": true
+  },
+  {
+    "className": "Lightning 368",
+    "shortName": "Lightning 368",
+    "handicap": 1168,
+    "priority": false
+  },
+  {
+    "className": "Megabyte",
+    "shortName": "Megabyte",
+    "handicap": 1060,
+    "priority": false
+  },
+  {
+    "className": "Merlin Rocket",
+    "shortName": "Merlin Rocket",
+    "handicap": 983,
+    "priority": true
+  },
+  {
+    "className": "Miracle",
+    "shortName": "Miracle",
+    "handicap": 1196,
+    "priority": false
+  },
+  {
+    "className": "Mirror (D/H)",
+    "shortName": "Mirror",
+    "handicap": 1368,
+    "priority": false
+  },
+  {
+    "className": "Mirror (S/H)",
+    "shortName": "Mirror (S/H)",
+    "handicap": 1375,
+    "priority": false
+  },
+  {
+    "className": "Musto Skiff",
+    "shortName": "Musto Skiff",
+    "handicap": 834,
+    "priority": false
+  },
+  {
+    "className": "OK",
+    "shortName": "OK",
+    "handicap": 1095,
+    "priority": true
+  },
+  {
+    "className": "Optimist",
+    "shortName": "Optimist",
+    "handicap": 1631,
+    "priority": true
+  },
+  {
+    "className": "Osprey",
+    "shortName": "Osprey",
+    "handicap": 932,
+    "priority": false
+  },
+  {
+    "className": "Phantom",
+    "shortName": "Phantom",
+    "handicap": 998,
+    "priority": true
+  },
+  {
+    "className": "Rooster 8.1",
+    "shortName": "Rooster 8.1",
+    "handicap": 1021,
+    "priority": false
+  },
+  {
+    "className": "RS Aero 5",
+    "shortName": "RS Aero 5",
+    "handicap": 1139,
+    "priority": true
+  },
+  {
+    "className": "RS Aero 6",
+    "shortName": "RS Aero 6",
+    "handicap": 1099,
+    "priority": true
+  },
+  {
+    "className": "RS Aero 7",
+    "shortName": "RS Aero 7",
+    "handicap": 1063,
+    "priority": true
+  },
+  {
+    "className": "RS Aero 9",
+    "shortName": "RS Aero 9",
+    "handicap": 1005,
+    "priority": true
+  },
+  {
+    "className": "RS Feva XL",
+    "shortName": "RS Feva XL",
+    "handicap": 1244,
+    "priority": true
+  },
+  {
+    "className": "RS Tera Pro",
+    "shortName": "RS Tera Pro",
+    "handicap": 1370,
+    "priority": true
+  },
+  {
+    "className": "RS Tera Sport",
+    "shortName": "RS Tera Sport",
+    "handicap": 1445,
+    "priority": true
+  },
+  {
+    "className": "RS Vareo",
+    "shortName": "RS Vareo",
+    "handicap": 1095,
+    "priority": false
+  },
+  {
+    "className": "RS Vision",
+    "shortName": "RS Vision",
+    "handicap": 1145,
+    "priority": false
+  },
+  {
+    "className": "RS100 8.4",
+    "shortName": "RS100 8.4",
+    "handicap": 1001,
+    "priority": true
+  },
+  {
+    "className": "RS200",
+    "shortName": "RS200",
+    "handicap": 1050,
+    "priority": true
+  },
+  {
+    "className": "RS300",
+    "shortName": "RS300",
+    "handicap": 965,
+    "priority": false
+  },
+  {
+    "className": "RS400",
+    "shortName": "RS400",
+    "handicap": 942,
+    "priority": false
+  },
+  {
+    "className": "RS500",
+    "shortName": "RS500",
+    "handicap": 963,
+    "priority": false
+  },
+  {
+    "className": "RS600",
+    "shortName": "RS600",
+    "handicap": 921,
+    "priority": false
+  },
+  {
+    "className": "RS700",
+    "shortName": "RS700",
+    "handicap": 845,
+    "priority": false
+  },
+  {
+    "className": "RS800",
+    "shortName": "RS800",
+    "handicap": 799,
+    "priority": false
+  },
+  {
+    "className": "Scorpion",
+    "shortName": "Scorpion",
+    "handicap": 1042,
+    "priority": false
+  },
+  {
+    "className": "Seafly",
+    "shortName": "Seafly",
+    "handicap": 1077,
+    "priority": false
+  },
+  {
+    "className": "Splash",
+    "shortName": "Splash",
+    "handicap": 1247,
+    "priority": false
+  },
+  {
+    "className": "Snipe",
+    "shortName": "Snipe",
+    "handicap": 1110,
+    "priority": false
+  },
+  {
+    "className": "Solo",
+    "shortName": "Solo",
+    "handicap": 1139,
+    "priority": true
+  },
+  {
+    "className": "Solution",
+    "shortName": "Solution",
+    "handicap": 1108,
+    "priority": false
+  },
+  {
+    "className": "Streaker",
+    "shortName": "Streaker",
+    "handicap": 1124,
+    "priority": false
+  },
+  {
+    "className": "Supernova",
+    "shortName": "Supernova",
+    "handicap": 1075,
+    "priority": false
+  },
+  {
+    "className": "Tasar",
+    "shortName": "Tasar",
+    "handicap": 1019,
+    "priority": false
+  },
+  {
+    "className": "Topper",
+    "shortName": "Topper",
+    "handicap": 1363,
+    "priority": true
+  },
+  {
+    "className": "Topper 4.2",
+    "shortName": "Topper 4.2",
+    "handicap": 1440,
+    "priority": false
+  },
+  {
+    "className": "Wanderer",
+    "shortName": "Wanderer",
+    "handicap": 1201,
+    "priority": false
+  },
+  {
+    "className": "Wayfarer",
+    "shortName": "Wayfarer",
+    "handicap": 1109,
+    "priority": false
+  },
+  {
+    "className": "Blaze Fire",
+    "shortName": "Blaze Fire",
+    "handicap": 1050,
+    "priority": false
+  },
+  {
+    "className": "Buzz",
+    "shortName": "Buzz",
+    "handicap": 1006,
+    "priority": false
+  },
+  {
+    "className": "Byte Ci",
+    "shortName": "Byte Ci",
+    "handicap": 1217,
+    "priority": false
+  },
+  {
+    "className": "Cadet",
+    "shortName": "Cadet",
+    "handicap": 1455,
+    "priority": true
+  },
+  {
+    "className": "Devoti D-Zero Black Rig",
+    "shortName": "D-Zero BR",
+    "handicap": 1057,
+    "priority": false
+  },
+  {
+    "className": "Fusion Pro",
+    "shortName": "Fusion Pro",
+    "handicap": 1290,
+    "priority": false
+  },
+  {
+    "className": "Fusion Pro Gen",
+    "shortName": "Fusion Pro Gen",
+    "handicap": 1275,
+    "priority": false
+  },
+  {
+    "className": "International Canoe",
+    "shortName": "Int Canoe",
+    "handicap": 847,
+    "priority": false
+  },
+  {
+    "className": "Mirror- No Spinnaker",
+    "shortName": "Mirror- No Spi",
+    "handicap": 1371,
+    "priority": false
+  },
+  {
+    "className": "Hansa 303 - Singlehanded",
+    "shortName": "Hansa 303 S",
+    "handicap": 1580,
+    "priority": true
+  },
+  {
+    "className": "Hansa Liberty",
+    "shortName": "Hansa Liberty",
+    "handicap": 1423,
+    "priority": true
+  },
+  {
+    "className": "A Class (Non-Foiling)",
+    "shortName": "A Class NF",
+    "handicap": 695,
+    "priority": false
+  },
+  {
+    "className": "Catapult",
+    "shortName": "Catapult",
+    "handicap": 898,
+    "priority": false
+  },
+  {
+    "className": "Challenger",
+    "shortName": "Challenger",
+    "handicap": 1171,
+    "priority": false
+  },
+  {
+    "className": "Dart 15 / Sprint 15",
+    "shortName": "Dart 15",
+    "handicap": 924,
+    "priority": false
+  },
+  {
+    "className": "Dart 15 Sport / Sprint 15 Sport",
+    "shortName": "Dart 15 Sport",
+    "handicap": 904,
+    "priority": false
+  },
+  {
+    "className": "Dart 18",
+    "shortName": "Dart 18",
+    "handicap": 810,
+    "priority": false
+  },
+  {
+    "className": "Hurricane 5.9 Sx",
+    "shortName": "Hurricane 5.9 Sx",
+    "handicap": 691,
+    "priority": false
+  },
+  {
+    "className": "Spitfire",
+    "shortName": "Spitfire",
+    "handicap": 740,
+    "priority": false
+  }
+]

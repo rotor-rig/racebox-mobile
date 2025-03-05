@@ -508,25 +508,25 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(4.0),
         child: Column(
           children: [
             // Race Timer Card
             Card(
               elevation: 4,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(4.0),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    if (constraints.maxWidth < 600) {
-                      // Stack vertically if the width is less than 600
+                    if (constraints.maxWidth < 300) {
+                      // Stack vertically if the width is less than 300
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Start Time:',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[700],
                             ),
@@ -534,7 +534,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                           Text(
                             formattedStartTime,
                             style: const TextStyle(
-                              fontSize: 32,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'monospace',
                             ),
@@ -543,7 +543,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                           Text(
                             'Elapsed:',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[700],
                             ),
@@ -551,7 +551,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                           Text(
                             formatElapsedTime(raceTime),
                             style: const TextStyle(
-                              fontSize: 32,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'monospace',
                             ),
@@ -560,7 +560,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                           Text(
                             'Current Time:',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[700],
                             ),
@@ -568,7 +568,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                           Text(
                             currentTimeDisplay,
                             style: const TextStyle(
-                              fontSize: 32,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'monospace',
                             ),
@@ -583,25 +583,25 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Start Time:',
+                                'Start Time',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey[700],
                                 ),
                               ),
                               Text(
-                                'Elapsed:',
+                                'Elapsed',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey[700],
                                 ),
                               ),
                               Text(
-                                'Current Time:',
+                                'Current Time',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey[700],
                                 ),
@@ -614,7 +614,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                               Text(
                                 formattedStartTime,
                                 style: const TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'monospace',
                                 ),
@@ -622,7 +622,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                               Text(
                                 formatElapsedTime(raceTime),
                                 style: const TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'monospace',
                                 ),
@@ -630,7 +630,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                               Text(
                                 currentTimeDisplay,
                                 style: const TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'monospace',
                                 ),
@@ -653,7 +653,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                   const Text(
                     'Boats',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
