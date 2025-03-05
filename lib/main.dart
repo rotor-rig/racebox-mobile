@@ -76,11 +76,13 @@ class BoatClass {
   final String className;
   final String shortName;
   final int handicap;
+  final bool priority; // Add this line
 
   BoatClass({
     required this.className,
     required this.shortName,
     required this.handicap,
+    required this.priority, // Add this line
   });
 
   factory BoatClass.fromJson(Map<String, dynamic> json) {
@@ -88,6 +90,7 @@ class BoatClass {
       className: json['className'],
       shortName: json['shortName'],
       handicap: json['handicap'],
+      priority: json['priority'], // Add this line
     );
   }
 }
@@ -181,7 +184,8 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
     }
   }
 
-  void addBoat(String sailNumber, String boatClass, String shortName, int handicap) {
+  void addBoat(
+      String sailNumber, String boatClass, String shortName, int handicap) {
     setState(() {
       // Ensure unique ID by using timestamp + random component
       final uniqueId = '${DateTime.now().millisecondsSinceEpoch}_$sailNumber';
@@ -189,7 +193,9 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
         id: uniqueId,
         sailNumber: sailNumber,
         boatClass: boatClass,
-        shortName: shortName.isNotEmpty ? shortName : null, // Ensure shortName is assigned
+        shortName: shortName.isNotEmpty
+            ? shortName
+            : null, // Ensure shortName is assigned
         handicap: handicap, // Add this line
       ));
     });
@@ -214,7 +220,8 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${boat.shortName ?? boat.boatClass} ${boat.sailNumber} finished at $formattedTime'),
+            content: Text(
+                '${boat.shortName ?? boat.boatClass} ${boat.sailNumber} finished at $formattedTime'),
             duration: const Duration(seconds: 3),
             action: SnackBarAction(
               label: 'UNDO',
@@ -242,7 +249,8 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
         // Show confirmation
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Finish time for ${boat.boatClass} ${boat.sailNumber} has been removed'),
+            content: Text(
+                'Finish time for ${boat.boatClass} ${boat.sailNumber} has been removed'),
             duration: const Duration(seconds: 2),
           ),
         );
@@ -331,9 +339,10 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
       context: context,
       builder: (BuildContext context) {
         return AddBoatDialog(
-          predefinedClasses: boatClassOptions,
+          predefinedClasses: boatClasses, // Change type to List<BoatClass>
           onAddBoat: (sailNumber, boatClass, shortName, handicap) {
-            addBoat(sailNumber, boatClass, shortName, handicap); // Ensure shortName is passed here
+            addBoat(sailNumber, boatClass, shortName,
+                handicap); // Ensure shortName is passed here
           },
         );
       },
@@ -455,7 +464,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
       startTime = DateTime.parse(startTimeString);
     }
     setState(() {});
-    
+
     // Start the race timer if startTime is already set
     if (startTime != null) {
       updateRaceTimer();
@@ -724,11 +733,17 @@ class FixedSizeBoatCard extends StatelessWidget {
     // Find the boat class object
     final boatClass = boatClasses.firstWhere(
       (bc) => bc.className == boat.boatClass,
-      orElse: () => BoatClass(className: boat.boatClass, shortName: boat.boatClass, handicap: 1000),
+      orElse: () => BoatClass(
+          className: boat.boatClass,
+          shortName: boat.boatClass,
+          handicap: 1000,
+          priority: false),
     );
 
     // Determine the display name
-    final displayName = boatClass.className.length > 6 ? boatClass.shortName : boatClass.className;
+    final displayName = boatClass.className.length > 6
+        ? boatClass.shortName
+        : boatClass.className;
 
     return SizedBox(
       width: width,
@@ -838,10 +853,11 @@ class FixedSizeBoatCard extends StatelessWidget {
 }
 
 class AddBoatDialog extends StatefulWidget {
-  final List<String> predefinedClasses;
-  final Function(String, String, String, int) onAddBoat; // Updated function signature
+  final List<BoatClass> predefinedClasses; // Change type to List<BoatClass>
+  final Function(String, String, String, int) onAddBoat;
 
-  const AddBoatDialog({super.key, required this.predefinedClasses, required this.onAddBoat});
+  const AddBoatDialog(
+      {super.key, required this.predefinedClasses, required this.onAddBoat});
 
   @override
   _AddBoatDialogState createState() => _AddBoatDialogState();
@@ -851,7 +867,7 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
   final _sailNumberController = TextEditingController();
   final _classController = TextEditingController();
   final _shortNameController = TextEditingController();
-  final _handicapController = TextEditingController(text: '1000'); // Add this line
+  final _handicapController = TextEditingController(text: '1000');
   bool _isCustomClass = false;
   bool _isSailNumberValid = true;
   bool _isClassValid = true;
@@ -860,7 +876,19 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
   void initState() {
     super.initState();
     if (widget.predefinedClasses.isNotEmpty) {
-      _classController.text = widget.predefinedClasses.first;
+      // Sort predefined classes by priority and then alphabetically
+      widget.predefinedClasses.sort((a, b) {
+        if (a.priority && b.priority) {
+          return a.className.compareTo(b.className);
+        } else if (a.priority) {
+          return -1;
+        } else if (b.priority) {
+          return 1;
+        } else {
+          return a.className.compareTo(b.className);
+        }
+      });
+      _classController.text = widget.predefinedClasses.first.className;
     }
   }
 
@@ -887,9 +915,10 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
                   setState(() {
                     _isCustomClass = value;
                     if (!_isCustomClass) {
-                      _classController.text = widget.predefinedClasses.first;
+                      _classController.text =
+                          widget.predefinedClasses.first.className;
                       _shortNameController.clear();
-                      _handicapController.text = '1000'; // Reset handicap
+                      _handicapController.text = '1000';
                     } else {
                       _classController.clear();
                     }
@@ -926,10 +955,10 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
           else
             DropdownButtonFormField<String>(
               value: _classController.text,
-              items: widget.predefinedClasses.map((String value) {
+              items: widget.predefinedClasses.map((BoatClass boatClass) {
                 return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
+                  value: boatClass.className,
+                  child: Text(boatClass.className),
                 );
               }).toList(),
               onChanged: (String? newValue) {
@@ -962,8 +991,8 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
               final sailNumber = _sailNumberController.text;
               final boatClass = _classController.text;
               final shortName = _shortNameController.text;
-              final handicap = int.parse(_handicapController.text); // Add this line
-              widget.onAddBoat(sailNumber, boatClass, shortName, handicap); // Updated function call
+              final handicap = int.parse(_handicapController.text);
+              widget.onAddBoat(sailNumber, boatClass, shortName, handicap);
               Navigator.of(context).pop();
             }
           },
@@ -978,7 +1007,7 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
     _sailNumberController.dispose();
     _classController.dispose();
     _shortNameController.dispose();
-    _handicapController.dispose(); // Add this line
+    _handicapController.dispose();
     super.dispose();
   }
 }
