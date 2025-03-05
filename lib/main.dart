@@ -29,6 +29,7 @@ class Boat {
   final String sailNumber;
   final String boatClass;
   final String? shortName; // Added shortName field
+  final int handicap; // Add this line
   String? finishTime; // Stores actual time of day as string
   DateTime? finishDateTime; // Stores the actual DateTime of finish
 
@@ -37,6 +38,7 @@ class Boat {
     required this.sailNumber,
     required this.boatClass,
     this.shortName,
+    required this.handicap, // Add this line
     this.finishTime,
     this.finishDateTime,
   });
@@ -48,6 +50,7 @@ class Boat {
       'sailNumber': sailNumber,
       'boatClass': boatClass,
       'shortName': shortName,
+      'handicap': handicap, // Add this line
       'finishTime': finishTime,
       'finishDateTime': finishDateTime?.toIso8601String(),
     };
@@ -60,6 +63,7 @@ class Boat {
       sailNumber: map['sailNumber'],
       boatClass: map['boatClass'],
       shortName: map['shortName'],
+      handicap: map['handicap'], // Add this line
       finishTime: map['finishTime'],
       finishDateTime: map['finishDateTime'] != null
           ? DateTime.parse(map['finishDateTime'])
@@ -177,7 +181,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
     }
   }
 
-  void addBoat(String sailNumber, String boatClass, String shortName) {
+  void addBoat(String sailNumber, String boatClass, String shortName, int handicap) {
     setState(() {
       // Ensure unique ID by using timestamp + random component
       final uniqueId = '${DateTime.now().millisecondsSinceEpoch}_$sailNumber';
@@ -186,6 +190,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
         sailNumber: sailNumber,
         boatClass: boatClass,
         shortName: shortName.isNotEmpty ? shortName : null, // Ensure shortName is assigned
+        handicap: handicap, // Add this line
       ));
     });
     saveState();
@@ -327,8 +332,8 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
       builder: (BuildContext context) {
         return AddBoatDialog(
           predefinedClasses: boatClassOptions,
-          onAddBoat: (sailNumber, boatClass, shortName) {
-            addBoat(sailNumber, boatClass, shortName); // Ensure shortName is passed here
+          onAddBoat: (sailNumber, boatClass, shortName, handicap) {
+            addBoat(sailNumber, boatClass, shortName, handicap); // Ensure shortName is passed here
           },
         );
       },
@@ -834,9 +839,9 @@ class FixedSizeBoatCard extends StatelessWidget {
 
 class AddBoatDialog extends StatefulWidget {
   final List<String> predefinedClasses;
-  final Function(String, String, String) onAddBoat;
+  final Function(String, String, String, int) onAddBoat; // Updated function signature
 
-  AddBoatDialog({required this.predefinedClasses, required this.onAddBoat});
+  const AddBoatDialog({super.key, required this.predefinedClasses, required this.onAddBoat});
 
   @override
   _AddBoatDialogState createState() => _AddBoatDialogState();
@@ -845,7 +850,8 @@ class AddBoatDialog extends StatefulWidget {
 class _AddBoatDialogState extends State<AddBoatDialog> {
   final _sailNumberController = TextEditingController();
   final _classController = TextEditingController();
-  final _shortNameController = TextEditingController(); // Add this line
+  final _shortNameController = TextEditingController();
+  final _handicapController = TextEditingController(text: '1000'); // Add this line
   bool _isCustomClass = false;
   bool _isSailNumberValid = true;
   bool _isClassValid = true;
@@ -874,7 +880,7 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
           ),
           Row(
             children: [
-              const Text('Custom Class'),
+              const Text('Unlisted Class'),
               Switch(
                 value: _isCustomClass,
                 onChanged: (bool value) {
@@ -882,6 +888,8 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
                     _isCustomClass = value;
                     if (!_isCustomClass) {
                       _classController.text = widget.predefinedClasses.first;
+                      _shortNameController.clear();
+                      _handicapController.text = '1000'; // Reset handicap
                     } else {
                       _classController.clear();
                     }
@@ -891,12 +899,29 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
             ],
           ),
           if (_isCustomClass)
-            TextField(
-              controller: _classController,
-              decoration: InputDecoration(
-                labelText: 'Custom Class',
-                errorText: _isClassValid ? null : 'Class is required',
-              ),
+            Column(
+              children: [
+                TextField(
+                  controller: _classController,
+                  decoration: InputDecoration(
+                    labelText: 'Class Name',
+                    errorText: _isClassValid ? null : 'Class is required',
+                  ),
+                ),
+                TextField(
+                  controller: _shortNameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Short Name',
+                  ),
+                ),
+                TextField(
+                  controller: _handicapController,
+                  decoration: const InputDecoration(
+                    labelText: 'Handicap',
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ],
             )
           else
             DropdownButtonFormField<String>(
@@ -916,12 +941,6 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
                 labelText: 'Class',
               ),
             ),
-          TextField(
-            controller: _shortNameController, // Add this line
-            decoration: const InputDecoration(
-              labelText: 'Short Name', // Add this line
-            ),
-          ),
         ],
       ),
       actions: [
@@ -942,8 +961,9 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
             if (_isSailNumberValid && _isClassValid) {
               final sailNumber = _sailNumberController.text;
               final boatClass = _classController.text;
-              final shortName = _shortNameController.text; // Add this line
-              widget.onAddBoat(sailNumber, boatClass, shortName); // Add this line
+              final shortName = _shortNameController.text;
+              final handicap = int.parse(_handicapController.text); // Add this line
+              widget.onAddBoat(sailNumber, boatClass, shortName, handicap); // Updated function call
               Navigator.of(context).pop();
             }
           },
@@ -957,7 +977,8 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
   void dispose() {
     _sailNumberController.dispose();
     _classController.dispose();
-    _shortNameController.dispose(); // Add this line
+    _shortNameController.dispose();
+    _handicapController.dispose(); // Add this line
     super.dispose();
   }
 }
