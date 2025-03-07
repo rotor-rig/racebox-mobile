@@ -582,13 +582,6 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Boats',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   const SizedBox(height: 8),
                   Expanded(
                     child: boats.isEmpty
