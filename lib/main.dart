@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
@@ -45,7 +46,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
 
   // Fixed dimensions for boat cards
   static const double boatCardWidth = 100.0;
-  static const double boatCardHeight = 80.0;
+  static const double boatCardHeight = 100.0;
   static const double boatCardSpacing = 8.0;
 
   // Format for displaying time of day
@@ -119,8 +120,8 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
   void addBoat(
       String sailNumber, String boatClass, String shortName, int handicap) {
     setState(() {
-      // Ensure unique ID by using timestamp + random component
-      final uniqueId = '${DateTime.now().millisecondsSinceEpoch}_$sailNumber';
+      // Ensure unique ID by using uuidv4
+      final uniqueId = const Uuid().v4();
       boats.add(Boat(
         id: uniqueId,
         sailNumber: sailNumber,
@@ -128,7 +129,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
         shortName: shortName.isNotEmpty
             ? shortName
             : null, // Ensure shortName is assigned
-        handicap: handicap, // Add this line
+        handicap: handicap,
       ));
     });
     saveState();
@@ -186,6 +187,28 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
             duration: const Duration(seconds: 2),
           ),
         );
+      });
+      saveState();
+    }
+  }
+
+  void moveBoatUpOne(String boatId) {
+    final boatIndex = boats.indexWhere((boat) => boat.id == boatId);
+    if (boatIndex > 0) {
+      setState(() {
+        final boat = boats.removeAt(boatIndex);
+        boats.insert(boatIndex - 1, boat);
+      });
+      saveState();
+    }
+  }
+
+  void moveBoatToTop(String boatId) {
+    final boatIndex = boats.indexWhere((boat) => boat.id == boatId);
+    if (boatIndex > 0) {
+      setState(() {
+        final boat = boats.removeAt(boatIndex);
+        boats.insert(0, boat);
       });
       saveState();
     }
@@ -609,7 +632,9 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                                   onTap: () => recordFinish(boat.id),
                                   onUndo: () => undoFinish(boat.id),
                                   onRemove: () => removeBoat(boat.id),
-                                  boatClasses: boatClasses, // Add this line
+                                  onMoveUpOne: () => moveBoatUpOne(boat.id),
+                                  onMoveUpTop: () => moveBoatToTop(boat.id),
+                                  boatClasses: boatClasses,
                                 );
                               }).toList(),
                             ),

@@ -1,3 +1,5 @@
+// This file contains the FixedSizeBoatCard widget which is a fixed-size card widget for displaying a boat.
+// The card has a fixed width and height and displays the boat's sail number, class name, and finish time.
 import 'package:flutter/material.dart';
 import '../models/boat.dart'; // Import Boat  and BoatClass
 import '../models/boat_class.dart'; // Import BoatClass
@@ -11,7 +13,9 @@ class FixedSizeBoatCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onUndo;
   final VoidCallback onRemove;
-  final List<BoatClass> boatClasses; // Add this line
+  final VoidCallback onMoveUpOne;
+  final VoidCallback onMoveUpTop;
+  final List<BoatClass> boatClasses;
 
   const FixedSizeBoatCard({
     Key? key,
@@ -22,7 +26,9 @@ class FixedSizeBoatCard extends StatelessWidget {
     required this.onTap,
     required this.onUndo,
     required this.onRemove,
-    required this.boatClasses, // Add this line
+    required this.onMoveUpOne,
+    required this.onMoveUpTop,
+    required this.boatClasses, 
   }) : super(key: key);
 
   @override
@@ -59,10 +65,11 @@ class FixedSizeBoatCard extends StatelessWidget {
             : null,
         child: InkWell(
           onTap: hasFinished ? null : onTap,
+          onLongPress: onRemove,
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.fromLTRB(4, 24, 2, 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -115,18 +122,26 @@ class FixedSizeBoatCard extends StatelessWidget {
                   ],
                 ),
               ),
-              // Small delete button in corner
+              // Reorder button in top left corner
               Positioned(
-                right: 0,
-                top: 0,
+                left: 2,
+                top: 2,
                 child: GestureDetector(
-                  onTap: onRemove,
+                  onTap: onMoveUpOne, // move up one place
+                  onLongPress: onMoveUpTop, //move to top of list
                   child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.grey,
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                     padding: const EdgeInsets.all(2),
                     child: const Icon(
-                      Icons.close,
-                      color: Colors.red,
-                      size: 12,
+                      Icons.arrow_back,
+                      // color: Colors.red,
+                      size: 16,
                     ),
                   ),
                 ),
@@ -134,12 +149,21 @@ class FixedSizeBoatCard extends StatelessWidget {
               // Undo button in bottom right corner
               if (hasFinished)
                 Positioned(
-                  right: 4,
-                  bottom: 4,
+                  right: 2,
+                  bottom: 2,
                   child: GestureDetector(
-                    onTap: onUndo,
-                    child: const Icon(Icons.undo, size: 16),
-                  ),
+                      onTap: onUndo,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Colors.grey,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        padding: const EdgeInsets.all(2),
+                        child: const Icon(Icons.undo, size: 16),
+                      )),
                 ),
             ],
           ),

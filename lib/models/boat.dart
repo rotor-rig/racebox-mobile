@@ -1,4 +1,4 @@
-// import 'dart:convert';
+enum GridSort { no, yes, top}
 
 class Boat {
   final String id;
