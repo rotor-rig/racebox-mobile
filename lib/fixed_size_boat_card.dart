@@ -146,6 +146,25 @@ class FixedSizeBoatCard extends StatelessWidget {
                   ),
                 ),
               ),
+              // Race Number in top right corner
+              Positioned(
+                top: 2,
+                right: 2,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  //decoration: BoxDecoration(
+                    //color: Colors.blue[100],
+                    //borderRadius: BorderRadius.circular(4),
+                  //),
+                  child: Text(
+                    boat.raceNumber?.toString() ?? '',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
               // Undo button in bottom right corner
               if (hasFinished)
                 Positioned(

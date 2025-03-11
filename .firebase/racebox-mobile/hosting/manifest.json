@@ -1,11 +1,11 @@
 {
-    "name": "racebox_mobile",
-    "short_name": "racebox_mobile",
+    "name": "Racebox Mobile",
+    "short_name": "Racebox",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Dinghy Race Timer",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

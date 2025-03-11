@@ -8,6 +8,7 @@ class Boat {
   final int handicap;
   String? finishTime;
   DateTime? finishDateTime;
+  int? raceNumber;
 
   Boat({
     required this.id,
@@ -17,6 +18,7 @@ class Boat {
     required this.handicap,
     this.finishTime,
     this.finishDateTime,
+    this.raceNumber,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +30,7 @@ class Boat {
       'handicap': handicap,
       'finishTime': finishTime,
       'finishDateTime': finishDateTime?.toIso8601String(),
+      'raceNumber': raceNumber,
     };
   }
 
@@ -42,6 +45,7 @@ class Boat {
       finishDateTime: map['finishDateTime'] != null
           ? DateTime.parse(map['finishDateTime'])
           : null,
+      raceNumber: map['raceNumber'],
     );
   }
 }
