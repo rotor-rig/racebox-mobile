@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import './models/boat.dart'; // Import the Boat class
 import './models/boat_class.dart'; // Import the BoatClass class
@@ -273,18 +275,57 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
       return;
     }
 
-    // Create CSV content
-    String csvContent = 'Position,Sail Number,Class,Finish Time\n';
-    for (int i = 0; i < finishedBoats.length; i++) {
-      final boat = finishedBoats[i];
-      csvContent +=
-          '${i + 1},${boat.sailNumber},${boat.boatClass},${boat.finishTime}\n';
+    // Group boats by race number
+    final boatsByRace = <int, List<Boat>>{};
+    for (var boat in finishedBoats) {
+      if (!boatsByRace.containsKey(boat.raceNumber)) {
+        int r;
+        if (boat.raceNumber == null || boat.raceNumber! < 1) {
+          r = 1;
+        } else {
+          r = boat.raceNumber!;
+        }
+        boatsByRace[r] = [];
+      }
+      boatsByRace[boat.raceNumber]!.add(boat);
     }
 
+    // Create CSV content for each race
+    String csvContent = '';
+    for (var raceNumber in boatsByRace.keys) {
+      final boatsInRace = boatsByRace[raceNumber]!;
+      csvContent += 'Race $raceNumber Results\n';
+      csvContent += 'Position,Sail Number,Class,Handicap,Finish Time\n';
+      for (int i = 0; i < boatsInRace.length; i++) {
+        final boat = boatsInRace[i];
+        csvContent +=
+            '${i + 1},${boat.sailNumber},${boat.boatClass},${boat.handicap},${boat.finishTime}\n';
+      }
+      csvContent += '\n'; // Add a blank line between races
+    }
+/*
     // In a real app, we would save this to a file
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${finishedBoats.length} results would be exported'),
+        content: Text('${boatsByRace.length} races would be exported'),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+*/
+    // Get the directory to save the file
+    final directoryDownloads = await getDownloadsDirectory();
+    final directoryDocs = await getApplicationDocumentsDirectory();
+    final directory = directoryDownloads ?? directoryDocs;
+    final filePath = '${directory.path}/race_results.csv';
+
+    // Write the CSV content to the file
+    final file = File(filePath);
+    await file.writeAsString(csvContent);
+
+    // Show a snackbar with the file path
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Results exported to $filePath'),
         duration: const Duration(seconds: 3),
       ),
     );
@@ -297,8 +338,7 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
         return AddBoatDialog(
           predefinedClasses: boatClasses, // Change type to List<BoatClass>
           onAddBoat: (sailNumber, boatClass, shortName, handicap, raceNumber) {
-            addBoat(sailNumber, boatClass, shortName, handicap,
-                raceNumber); // Ensure shortName is passed here
+            addBoat(sailNumber, boatClass, shortName, handicap, raceNumber);
           },
         );
       },
@@ -325,17 +365,21 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
                   final timeParts = value.split(':');
                   if (timeParts.length >= 2) {
                     final now = DateTime.now();
-                    final hours = int.parse(timeParts[0]);
-                    final minutes = int.parse(timeParts[1]);
+                    final hours = int.tryParse(timeParts[0]) == null
+                        ? now.hour
+                        : int.parse(timeParts[0]);
+                    final minutes = int.tryParse(timeParts[1]) == null
+                        ? 0
+                        : int.parse(timeParts[1]);
                     final seconds =
                         timeParts.length == 3 ? int.parse(timeParts[2]) : 0;
                     selectedDate = DateTime(
                       now.year,
                       now.month,
                       now.day,
-                      hours,
-                      minutes,
-                      seconds,
+                      hours > 23 || hours < 0 ? now.hour : hours,
+                      minutes > 59 || minutes < 0 ? 0 : minutes,
+                      seconds > 59 || seconds < 0 ? 0 : seconds,
                     );
                   }
                 },
@@ -801,14 +845,26 @@ class _AddBoatDialogState extends State<AddBoatDialog> {
               _isSailNumberValid = _sailNumberController.text.isNotEmpty;
               _isClassValid =
                   !_isCustomClass || _classController.text.isNotEmpty;
-              _isRaceNumberValid = _raceNumberController.text.isNotEmpty && int.tryParse(_raceNumberController.text) != null;
+              _isRaceNumberValid = _raceNumberController.text.isNotEmpty &&
+                  int.tryParse(_raceNumberController.text) != null;
             });
 
             if (_isSailNumberValid && _isClassValid && _isRaceNumberValid) {
               final sailNumber = _sailNumberController.text;
               final boatClass = _classController.text;
               final shortName = _shortNameController.text;
-              final handicap = int.tryParse(_handicapController.text) == null ? 1000 : int.parse(_handicapController.text);
+
+              int handicap = 1000;
+              if (_isCustomClass) {
+                if (int.tryParse(_handicapController.text) != null) {
+                  handicap = int.parse(_handicapController.text);
+                }
+              } else {
+                final boatClassObj = widget.predefinedClasses
+                    .firstWhere((bc) => bc.className == boatClass);
+                handicap = boatClassObj.handicap;
+              }
+
               final raceNumber = int.parse(_raceNumberController.text);
               widget.onAddBoat(
                   sailNumber, boatClass, shortName, handicap, raceNumber);
