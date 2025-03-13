@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:web/web.dart' as web;
 import 'package:flutter/services.dart' show rootBundle;
 import './models/boat.dart'; // Import the Boat class
 import './models/boat_class.dart'; // Import the BoatClass class
@@ -303,32 +305,34 @@ class _RaceTimerScreenState extends State<RaceTimerScreen> {
       }
       csvContent += '\n'; // Add a blank line between races
     }
-/*
-    // In a real app, we would save this to a file
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${boatsByRace.length} races would be exported'),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-*/
-    // Get the directory to save the file
-    final directoryDownloads = await getDownloadsDirectory();
-    final directoryDocs = await getApplicationDocumentsDirectory();
-    final directory = directoryDownloads ?? directoryDocs;
-    final filePath = '${directory.path}/race_results.csv';
 
-    // Write the CSV content to the file
-    final file = File(filePath);
-    await file.writeAsString(csvContent);
+    if (kIsWeb) {
+      // Web-specific code to download the file
+      final anchor = web.HTMLAnchorElement()
+        ..href = '${Uri.dataFromString(csvContent, mimeType: 'text/plain', encoding: utf8)}'
+        ..download = 'race_results.csv';
+      web.document.body?.append(anchor);
+      anchor.click();
+      anchor.remove();
+    } else {
+      // Get the directory to save the file
+      final directoryDownloads = await getDownloadsDirectory();
+      final directoryDocs = await getApplicationDocumentsDirectory();
+      final directory = directoryDownloads ?? directoryDocs;
+      final filePath = '${directory.path}/race_results.csv';
 
-    // Show a snackbar with the file path
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Results exported to $filePath'),
-        duration: const Duration(seconds: 3),
-      ),
-    );
+      // Write the CSV content to the file
+      final file = File(filePath);
+      await file.writeAsString(csvContent);
+
+      // Show a snackbar with the file path
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Results exported to $filePath'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
   }
 
   void _showAddBoatDialog() {
